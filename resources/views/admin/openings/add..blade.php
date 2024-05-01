@@ -1,7 +1,6 @@
-
 @extends('adminlte::page')
 
-@section('title', 'Create New Job')
+@section('title', 'Create New Openings')
 
 @section('content')
 
@@ -28,14 +27,13 @@
                 </ul>
             </div>
         @endif
-        <form id="jobForm" action="{{ route('careers.store') }}" method="post" autocomplete="off">
+        <form id="jobForm" action="{{ route('openings.store') }}" method="post" autocomplete="off">
             @csrf
             <div class="card mt-5">
                 <div class="card-header">
-                    <h3 class="card-title"><i class="fas fa-fw fa-plus"></i> Create New Job</h3>
+                    <h3 class="card-title"><i class="fas fa-fw fa-plus"></i> Create New Openings</h3>
                     <div class="card-tools">
-                        <a href="{{ route('careers.list-job') }}" class="btn btn-link btn-sm p-0"><i class="fas fa-fw fa-th-large"></i> View Job Listings</a>
-
+                        <a href="{{ route('openings.list') }}" class="btn btn-link btn-sm p-0"><i class="fas fa-fw fa-th-large"></i> View Job Openings</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -52,45 +50,56 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-12 col-md-3">
+                            <div class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="job_type">Job Type:</label>
-                                    <select id="job_type" class="form-control @error('job_type') is-invalid @enderror" name="job_type" required>
-                                        <option value="Full time">Full time</option>
-                                        <option value="Half time">Half time</option>
-                                    </select>
-                                    @error('job_type')
+                                    <label for="experience">Experience:</label>
+                                    <input type="text" id="experience" class="form-control @error('experience') is-invalid @enderror" name="experience" placeholder="Enter Experience" required>
+                                    @error('experience')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group mb-1 ">
-                                    <label>Job Status:</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="type" id="available" value="1" checked="">
-                                    <label class="form-check-label" for="available">Active</label>
-                                </div><div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="type" id="not-available" value="0">
-                                    <label class="form-check-label" for="not-available">Inactive</label>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="job_location">Job Location:</label>
-                                    <input type="text" id="job_location" class="form-control @error('job_location') is-invalid @enderror" name="job_location" required>
-                                    @error('job_location')
+                                    <label for="education">Education:</label>
+                                    <input type="text" id="education" class="form-control @error('education') is-invalid @enderror" name="education" placeholder="Enter Education" required>
+                                    @error('education')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="skills">Skills:</label>
+                                    <input type="text" id="skills" class="form-control @error('skills') is-invalid @enderror" name="skills" placeholder="Enter Skills" required>
+                                    @error('skills')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="about">About:</label>
+                                    <textarea id="about" class="form-control @error('about') is-invalid @enderror" name="about" required></textarea>
+                                    @error('about')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="salary">Salary in CTC:</label>
@@ -102,6 +111,19 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="location">Location:</label>
+                                    <input type="text" id="location" class="form-control @error('location') is-invalid @enderror" name="location" required>
+                                    @error('location')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="working_days">Working Days:</label>
@@ -128,45 +150,11 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="skills_required">Skills Required:</label>
-                                    <input type="text" id="skills_required" class="form-control @error('skills_required') is-invalid @enderror" name="skills_required" required>
-                                    @error('skills_required')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="education_required">Education Required:</label>
-                                    <input type="text" id="education_required" class="form-control @error('education_required') is-invalid @enderror" name="education_required" placeholder="Graduation" required>
-                                    @error('education_required')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="job_description">Job Description:</label>
-                                    <textarea id="job_description" class="form-control @error('job_description') is-invalid @enderror" name="job_description" required></textarea>
-                                    @error('job_description')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer text-right">
-                    <a href="{{ route('careers') }}" class="btn btn-outline-danger"><i class="fas fa-fw fa-times"></i> Cancel</a>
+                    <a href="{{ route('openings') }}" class="btn btn-outline-danger"><i class="fas fa-fw fa-times"></i> Cancel</a>
                     <button type="submit" class="btn btn-outline-primary"><i class="fas fa-fw fa-check"></i> Submit</button>
                 </div>
             </div>
@@ -189,14 +177,14 @@
                 Swal.fire({
                     icon: 'success',
                     title: 'Success!',
-                    text: 'Career created successfully.',
+                    text: 'Openings created successfully.',
                 });
             },
             error: function(xhr, status, error) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error!',
-                    text: 'Failed to create career.',
+                    text: 'Failed to create Openings.',
                 });
             }
         });
@@ -204,8 +192,3 @@
 </script>
 
 @stop
-
-
-
-
-

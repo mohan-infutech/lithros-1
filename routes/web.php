@@ -78,7 +78,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('/app/openings')->group(function () {
         Route::get('/', [OpeningController::class, 'index'])->name('openings');
-        Route::get('/create', [OpeningController::class, 'create'])->name('openings.create');
+        Route::get('/add', [ProductController::class, 'openings'])->name('openings.add');
         Route::post('/store', [OpeningController::class, 'store'])->name('openings.store');
         Route::post('/save', [OpeningController::class, 'save'])->name('openings.save');
         Route::get('/edit/{career_id}', [OpeningController::class, 'edit'])->name('openings.edit-job');

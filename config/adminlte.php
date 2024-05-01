@@ -343,7 +343,7 @@ return [
 
         [
             'text' => 'Careers',
-            'url'  => 'app/careers/list-job',
+            'url'  => 'app/openings/add',
             'icon' => 'fas fa-comment-dots',
         ],
 

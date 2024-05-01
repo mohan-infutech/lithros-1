@@ -13,9 +13,9 @@ class OpeningController extends Controller
         return view('admin.openings.list', compact('openings'));
     }
 
-    public function create()
+    public function add()
     {
-        return view('openings.create');
+        return view('openings.add');
     }
 
     public function store(Request $request)
