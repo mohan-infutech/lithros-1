@@ -7,105 +7,180 @@
 
 <div class="row">
     <div class="col-md-6 mx-auto">
-        
-        <form action="{{ route('careers.update', ['careers' => $career->id]) }}" method="POST">
-            @csrf
+        @if(session('success'))
+            <script>
+                $(document).ready(function() {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: '{{ session('success') }}',
+                    });
+                });
+            </script>
+        @endif
 
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <form id="jobForm" action="{{ route('openings.update') }}" method="post" autocomplete="off">
+            @csrf
+            @method('PUT')
+            <input type="hidden" name="opening_id" value="{{ $opening->id }}">
             <div class="card mt-5">
                 <div class="card-header">
-                    <h3 class="card-title"><i class="fas fa-fw fa-edit"></i> Update Career</h3>
+                    <h3 class="card-title"><i class="fas fa-fw fa-edit"></i> Edit Openings</h3>
+                    <div class="card-tools">
+                        <a href="{{ route('openings.list-job') }}" class="btn btn-link btn-sm p-0"><i class="fas fa-fw fa-reply"></i> Back to Job Listings</a>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="job_title">Job Title:</label>
-                                <input type="text" class="form-control" id="job_title" name="job_title" value="{{ $career->job_title }}">
+                    <div class="products-material-item-container">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="title">Title:</label>
+                                    <input type="text" id="title" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ $opening->title }}" required>
+                                    @error('title')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="job_type">Job Type:</label>
-                                <select class="form-control" id="job_type" name="job_type">
-                                    <option value="Full time" {{ $career->job_type == 'Full time' ? 'selected' : '' }}>Full time</option>
-                                    <option value="Half time" {{ $career->job_type == 'Half time' ? 'selected' : '' }}>Half time</option>
-                                </select>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="type">Job Type:</label>
+                                    <select id="type" class="form-control @error('type') is-invalid @enderror" name="type" required>
+                                        <option value="Full time" {{ $opening->type == 'Full time' ? 'selected' : '' }}>Full time</option>
+                                        <option value="Part time" {{ $opening->type == 'Part time' ? 'selected' : '' }}>Part time</option>
+                                    </select>
+                                    @error('type')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="experience">Experience:</label>
+                                    <input type="text" id="experience" class="form-control @error('experience') is-invalid @enderror" name="experience" value="{{ $opening->experience }}" required>
+                                    @error('experience')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="job_status">Status:</label>
-                                <select class="form-control" id="job_status" name="job_status">
-                                    <option value="1" {{ $career->job_status == 1 ? 'selected' : '' }}>Active</option>
-                                    <option value="0" {{ $career->job_status == 0 ? 'selected' : '' }}>Inactive</option>
-                                </select>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="education">Education:</label>
+                                    <input type="text" id="education" class="form-control @error('education') is-invalid @enderror" name="education" value="{{ $opening->education }}" required>
+                                    @error('education')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="skills">Skills:</label>
+                                    <input type="text" id="skills" class="form-control @error('skills') is-invalid @enderror" name="skills" value="{{ $opening->skills }}" required>
+                                    @error('skills')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="about">Job Openings:</label>
+                                    <textarea id="about" class="form-control @error('about') is-invalid @enderror" name="about" required>{{ $opening->about }}</textarea>
+                                    @error('about')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="salary">Salary:</label>
+                                    <input type="number" id="salary" class="form-control @error('salary') is-invalid @enderror" name="salary" value="{{ $opening->salary }}" required>
+                                    @error('salary')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="location">Location:</label>
+                                    <input type="text" id="location" class="form-control @error('location') is-invalid @enderror" name="location" value="{{ $opening->location }}" required>
+                                    @error('location')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="working_days">Working Days:</label>
+                                    <select id="working_days" class="form-control @error('working_days') is-invalid @enderror" name="working_days" required>
+                                        <option value="5" {{ $opening->working_days == '5' ? 'selected' : '' }}>5 Days</option>
+                                        <option value="6" {{ $opening->working_days == '6' ? 'selected' : '' }}>6 Days</option>
+                                        <option value="7" {{ $opening->working_days == '7' ? 'selected' : '' }}>7 Days</option>
+                                    </select>
+                                    @error('working_days')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="working_hours">Working Hours:</label>
+                                    <input type="text" id="working_hours" class="form-control @error('working_hours') is-invalid @enderror" name="working_hours" value="{{ $opening->working_hours }}" required>
+                                    @error('working_hours')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="job_location">Job Location:</label>
-                                <input type="text" class="form-control" id="job_location" name="job_location" value="{{ $career->job_location }}">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="salary">Salary:</label>
-                                <input type="number" class="form-control" id="salary" name="salary" value="{{ $career->salary }}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="working_days">Working Days:</label>
-                                <select class="form-control" id="working_days" name="working_days">
-                                    <option value="5 Days" {{ $career->working_days == '5 Days' ? 'selected' : '' }}>5 Days</option>
-                                    <option value="6 Days" {{ $career->working_days == '6 Days' ? 'selected' : '' }}>6 Days</option>
-                                    <option value="7 Days" {{ $career->working_days == '7 Days' ? 'selected' : '' }}>7 Days</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="working_hours">Working Hours:</label>
-                                <input type="text" class="form-control" id="working_hours" name="working_hours" value="{{ $career->working_hours }}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="skills_required">Skills Required:</label>
-                                <input type="text" class="form-control" id="skills_required" name="skills_required" value="{{ $career->skills_required }}">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="education_required">Education Required:</label>
-                                <input type="text" class="form-control" id="education_required" name="education_required" value="{{ $career->education_required }}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="job_description">Job Description:</label>
-                                <textarea class="form-control" id="job_description" name="job_description" rows="4">{{ $career->job_description }}</textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Add more fields as needed -->
                 </div>
                 <div class="card-footer text-right">
-                    <a href="{{ route('careers') }}" class="btn btn-outline-danger"><i class="fas fa-fw fa-times"></i> Cancel</a>
-                    <button type="submit" class="btn btn-outline-primary"><i class="fas fa-fw fa-check"></i> Update Career</button>
+                    <a href="{{ route('openings.list-job') }}" class="btn btn-outline-danger"><i class="fas fa-fw fa-times"></i> Cancel</a>
+                    <button type="submit" class="btn btn-outline-primary"><i class="fas fa-fw fa-check"></i> Submit</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
+
 
 
 @stop

@@ -11,7 +11,7 @@
             <div class="card-header">
                 <h3 class="card-title">Openings</h3>
                 <div class="card-tools">
-                    <a href="{{ route('careers.create') }}" class="btn btn-light btn-sm mr-2"><i class="fas fa-fw fa-plus"></i> Add New Career</a>
+                    <a href="{{ route('openings.create') }}" class="btn btn-light btn-sm mr-2"><i class="fas fa-fw fa-plus"></i> Add New Openings</a>
                 </div>
             </div>
             <div class="card-body">

@@ -343,8 +343,18 @@ return [
 
         [
             'text' => 'Careers',
-            'url'  => 'app/openings/add',
-            'icon' => 'fas fa-comment-dots',
+            'url'  => '#',
+            'icon' => 'fas fa-users',
+            'submenu' => [
+                [
+                    'text' => 'Add Openings',
+                    'url' => 'app/openings/create',
+                ],
+                [
+                    'text' => 'Openings',
+                    'url' => 'app/openings',
+                ],
+            ],
         ],
 
         [
@@ -352,6 +362,7 @@ return [
             'url'  => 'app/applicant/applicant-list',
             'icon' => 'fas fa-user',
         ],
+
 
 
     ],

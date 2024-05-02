@@ -75,18 +75,17 @@ Route::middleware(['auth'])->group(function () {
 
     });
 
-
     Route::prefix('/app/openings')->group(function () {
-        Route::get('/', [OpeningController::class, 'index'])->name('openings');
-        Route::get('/add', [ProductController::class, 'openings'])->name('openings.add');
+        Route::get('/', [OpeningController::class, 'index'])->name('openings.index');
+        Route::get('/create', [OpeningController::class, 'create'])->name('openings.create');
         Route::post('/store', [OpeningController::class, 'store'])->name('openings.store');
-        Route::post('/save', [OpeningController::class, 'save'])->name('openings.save');
-        Route::get('/edit/{career_id}', [OpeningController::class, 'edit'])->name('openings.edit-job');
-        Route::post('/update', [OpeningController::class, 'update'])->name('openings.update');
-        Route::delete('', [OpeningController::class, 'destroy'])->name('openings.destroy');
+        Route::get('/edit/{career_id}', [OpeningController::class, 'edit'])->name('openings.edit');
+        Route::post('/update/{career_id}', [OpeningController::class, 'update'])->name('openings.update');
+        Route::delete('/delete/{career_id}', [OpeningController::class, 'destroy'])->name('openings.destroy');
         Route::post('/search', [OpeningController::class, 'search'])->name('openings.search');
         Route::get('/list-job', [OpeningController::class, 'listJob'])->name('openings.list-job');
     });
+
 
     Route::prefix('/app/applicants')->group(function () {
         Route::get('/applicants', [ApplicantController::class, 'index'])->name('applicants.applicant-list');

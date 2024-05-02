@@ -33,24 +33,40 @@
                 <div class="card-header">
                     <h3 class="card-title"><i class="fas fa-fw fa-plus"></i> Create New Openings</h3>
                     <div class="card-tools">
-                        <a href="{{ route('openings.list') }}" class="btn btn-link btn-sm p-0"><i class="fas fa-fw fa-th-large"></i> View Job Openings</a>
+                        <a href="{{ route('openings.list-job') }}" class="btn btn-link btn-sm p-0"><i class="fas fa-fw fa-reply"></i> Back to Job Listings</a>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="products-material-item-container">
                         <div class="row">
-                            <div class="col-12 col-md-6">
+                            <div class="col-12">
                                 <div class="form-group">
-                                    <label for="job_title">Job Title:</label>
-                                    <input type="text" id="job_title" class="form-control @error('job_title') is-invalid @enderror" name="job_title" placeholder="Enter Job Title" required>
-                                    @error('job_title')
+                                    <label for="title">Title:</label>
+                                    <input type="text" id="title" class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Enter Job Title" required>
+                                    @error('title')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-12 col-md-6">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="type">Job Type:</label>
+                                    <select id="type" class="form-control @error('type') is-invalid @enderror" name="type" required>
+                                        <option value="Full time">Full time</option>
+                                        <option value="Part time">Part time</option>
+                                    </select>
+                                    @error('type')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="experience">Experience:</label>
                                     <input type="text" id="experience" class="form-control @error('experience') is-invalid @enderror" name="experience" placeholder="Enter Experience" required>
@@ -89,7 +105,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="about">About:</label>
+                                    <label for="about">Job Description:</label>
                                     <textarea id="about" class="form-control @error('about') is-invalid @enderror" name="about" required></textarea>
                                     @error('about')
                                         <span class="invalid-feedback" role="alert">
@@ -102,7 +118,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="salary">Salary in CTC:</label>
+                                    <label for="salary">Salary:</label>
                                     <input type="number" id="salary" class="form-control @error('salary') is-invalid @enderror" name="salary" required>
                                     @error('salary')
                                         <span class="invalid-feedback" role="alert">
@@ -128,9 +144,9 @@
                                 <div class="form-group">
                                     <label for="working_days">Working Days:</label>
                                     <select id="working_days" class="form-control @error('working_days') is-invalid @enderror" name="working_days" required>
-                                        <option value="5 Days">5 Days</option>
-                                        <option value="6 Days">6 Days</option>
-                                        <option value="7 Days">7 Days</option>
+                                        <option value="5">5 Days</option>
+                                        <option value="6">6 Days</option>
+                                        <option value="7">7 Days</option>
                                     </select>
                                     @error('working_days')
                                         <span class="invalid-feedback" role="alert">
@@ -154,7 +170,7 @@
                     </div>
                 </div>
                 <div class="card-footer text-right">
-                    <a href="{{ route('openings') }}" class="btn btn-outline-danger"><i class="fas fa-fw fa-times"></i> Cancel</a>
+                    <a href="{{ route('openings.list-job') }}" class="btn btn-outline-danger"><i class="fas fa-fw fa-times"></i> Cancel</a>
                     <button type="submit" class="btn btn-outline-primary"><i class="fas fa-fw fa-check"></i> Submit</button>
                 </div>
             </div>

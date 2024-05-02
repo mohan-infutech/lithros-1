@@ -10,12 +10,12 @@ class OpeningController extends Controller
     public function index()
     {
         $openings = Opening::all();
-        return view('admin.openings.list', compact('openings'));
+        return view('admin.openings.list-job', compact('openings'));
     }
 
-    public function add()
+    public function create()
     {
-        return view('openings.add');
+        return view('admin.openings.add-job');
     }
 
     public function store(Request $request)
@@ -64,6 +64,11 @@ class OpeningController extends Controller
         return redirect()->route('openings')
             ->with('success', 'Opening updated successfully');
     }
+    public function listJob()
+{
+    $openings = Opening::all();
+    return view('admin.openings.list-job', compact('openings'));
+}
 
     public function destroy(Opening $opening)
     {
