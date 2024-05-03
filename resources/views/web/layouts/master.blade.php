@@ -51,8 +51,8 @@
                 <a href="{{ route('main') }}" class="nav__item-link active">Home</a>
               </li>
               <li class="nav__item has-dropdown">
-                <a href="#" class="nav__item-link">About Us</a>
-                <button class="dropdown-toggle" data-toggle="dropdown"></button>
+                <a href="{{ route('web.company') }}" class="nav__item-link">About Us</a>
+                {{-- <button class="dropdown-toggle" data-toggle="dropdown"></button>
                 <ul class="dropdown-menu">
                   <li class="nav__item">
                     <a href="{{ route('web.company') }}" class="nav__item-link">Company</a>
@@ -66,7 +66,7 @@
                   <li class="nav__item">
                     <a href="{{ route('web.gallery') }}" class="nav__item-link">Gallery</a>
                   </li>
-                </ul>
+                </ul> --}}
               </li>
               <li class="nav__item has-dropdown">
                 <a href="#" class="nav__item-link">Services</a>

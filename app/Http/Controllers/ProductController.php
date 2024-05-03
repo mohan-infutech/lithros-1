@@ -13,9 +13,10 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $products = Product::all();
+        return $request->input();
         return view('admin.products.products', compact('products'));
     }
 
@@ -24,6 +25,7 @@ class ProductController extends Controller
         $specifications = array(
             "Battery Pack Energy",
             "Nominal Voltage",
+            "Rated Capacity",
             "Cycle Life",
             "Charging Method",
             "Charging Voltage",
@@ -108,7 +110,7 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
-   
+
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'mrp' => 'nullable|numeric',
@@ -127,7 +129,7 @@ class ProductController extends Controller
             'stock' => $validatedData['stock'],
             'status' => $validatedData['status'],
             'description' => $validatedData['description']
-            
+
         ]);
 
         $product->specifications()->delete();
@@ -171,14 +173,14 @@ class ProductController extends Controller
         // Delete the Image
         $imagePath = public_path('assets/images/products/' . $image->filename);
 
-      
+
         if (file_exists($imagePath)) {
             unlink($imagePath);
         }
-        
+
         $image->delete();
-        
-        
+
+
 
         return response()->json(['success'=>true, 'message'=>'Image deleted successfully'], 200);
     }

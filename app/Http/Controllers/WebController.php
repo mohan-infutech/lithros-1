@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Career;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Opening;
@@ -53,7 +52,7 @@ class WebController extends Controller
     }
 
     public function products()
-    {   
+    {
         $products = Product::with('images')->get();
         $products = Product::paginate(9);
         // dd($products);
@@ -73,7 +72,7 @@ class WebController extends Controller
     }
 
     public function showBySlug($slug)
-    {   
+    {
         $product = Product::with('specifications')->where('slug', $slug)->firstOrFail();
         return view('web.product-details', compact('product'));
     }
